@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { register } from '../service';
+import Loader from 'react-trope-loader'
 import Footer from './Footer';
 
 class Register extends Component {
   constructor() {
     super();
     this.state = {
-      user: {}
+      user: {},
+      loading: true
     }
   }
 
@@ -25,7 +27,17 @@ class Register extends Component {
     this.setState({ user });
   }
 
+  componentDidMount() {
+    document.title = "Social-REST | Register";
+    this.setState({ loading: false });
+  };
+
   render() {
+    
+    if (this.state.loading) {
+      return <div className="uk-flex uk-flex-center uk-flex-middle uk-height-viewport uk-position-z-index uk-position-relative"><Loader /></div>;
+    }
+
     return (
       <div className="uk-height-1-1">
         <div className="uk-flex uk-flex-center uk-flex-middle uk-background-muted uk-height-viewport">
