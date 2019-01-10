@@ -31,3 +31,15 @@ export const logout = (history) => {
   localStorage.removeItem('token');
   history.push('/');
 }
+
+export const getSocialNetworks = () => {
+  const token = localStorage.getItem('token');
+  const user = JSON.parse(localStorage.getItem('user'));
+
+  return axios.get(`${base_url}/dashboard/socialnetworks`, {
+    headers: {
+      'x-access-token': token,
+      'id': user._id
+    }
+  })
+}
