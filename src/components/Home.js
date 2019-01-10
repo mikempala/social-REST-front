@@ -36,10 +36,10 @@ class Home extends Component {
                 </div>
                 <div className="uk-navbar-right">
                   <ul className="uk-navbar-nav">
-                    <li className="uk-visible@s"><a href="">Features</a></li>
+                    <li className="uk-visible@s"><a href="/">Features</a></li>
                     <li className="uk-visible@s"><a href="/register">Signup</a></li>
                     <li className="uk-visible@s"><a href="/login">Login</a></li>
-                    <li><a class="uk-navbar-toggle" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"></a></li>
+                    <li><a className="uk-navbar-toggle" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"></a></li>
                   </ul>
                 </div>
               </nav>
@@ -52,8 +52,8 @@ class Home extends Component {
             <div className="uk-width-4-5@m uk-margin-auto animate uk-invisible">
               <p className="lead">With Social-REST you're able to manage your tweets</p>
             </div>
-            <div className="uk-margin-medium-top animate uk-invisible" data-uk-margin data-uk-scrollspy-className="uk-animation-fade uk-invisible">
-              <a className="uk-button uk-button-default uk-button-large uk-width-2-3 uk-width-auto@s" data-uk-icon="arrow-right" title="Learn More">LEARN MORE</a>
+            <div className="uk-margin-medium-top animate uk-invisible" data-uk-margin data-uk-scrollspy-class="uk-animation-fade uk-invisible">
+              <a href="/" className="uk-button uk-button-default uk-button-large uk-width-2-3 uk-width-auto@s" data-uk-icon="arrow-right" title="Learn More">LEARN MORE</a>
               <a href="/register" className="uk-button uk-button-primary uk-button-large uk-width-2-3 uk-width-auto@s" data-uk-icon="check" title="Learn More" >TRY IT OUT</a>
             </div>
           </div>

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const base_url = 'http://localhost:5000/api';
+const base_url = window.location.hostname === 'localhost' ? 'http://localhost:5000/api' : 'https://social-rest.herokuapp.com/api';
 
 export const register = (user, history) => {
   axios.post(`${base_url}/account/register`, user)
