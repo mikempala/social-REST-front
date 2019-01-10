@@ -17,7 +17,7 @@ class Dashboard extends Component {
     logout(this.props.history);
   }
 
-  openPopup = () => {
+  addTwitter = () => {
     const width = 600, height = 600;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
@@ -99,7 +99,8 @@ class Dashboard extends Component {
               <li className="uk-nav-header">ACTIONS</li>
               <li><a href="#"><span data-uk-icon="icon: pencil" className="uk-margin-small-right"></span>New Post</a></li>
               <li><a href="#"><span data-uk-icon="icon: comments" className="uk-margin-small-right"></span>Messages</a></li>
-              <li><a href="#"><span data-uk-icon="icon: users" className="uk-margin-small-right"></span>Followers</a></li>
+              <li><a href="#" onClick={this.addTwitter}><span data-uk-icon="icon: users" className="uk-margin-small-right"></span>Add Social Network</a></li>
+              <li><a href="#"><span data-uk-icon="icon: plus" className="uk-margin-small-right"></span>Followers</a></li>
               <li className="uk-parent"><a href="#"><span data-uk-icon="icon: social" className="uk-margin-small-right"></span>Select Social Network</a>
                 <ul className="uk-nav-sub">
                   <li><a href="#">Social Network 1</a></li>
