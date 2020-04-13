@@ -4,8 +4,8 @@ import Loader from 'react-trope-loader'
 import './Dashboard.css'
 
 class Dashboard extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       loading: true,
       user: {},
@@ -18,22 +18,25 @@ class Dashboard extends Component {
   }
 
   addTwitter = () => {
-    const width = 600, height = 600;
-    const left = (window.innerWidth / 2) - (width / 2);
-    const top = (window.innerHeight / 2) - (height / 2);
-    
-    const url = window.location.hostname === 'localhost' ? 'http://localhost:5000/api/auth/twitter' : 'https://social-rest.herokuapp.com/api/auth/twitter';
+    const url = `${process.env.REACT_APP_BASE_URL}/api/auth/twitter?id=${this.state.user._id}`;
 
-    return window.open(url, '',
-      `toolbar=no, location=no, directories=no, status=no, menubar=no,  scrollbars=no, resizable=no, copyhistory=no, width=${width}, height=${height}, top=${top}, left=${left}`
-    );
+    const addTwitterWindow = window.open(url, '_blank');
+
+    const timer = setInterval(() => { 
+      if(addTwitterWindow.closed) {
+        clearInterval(timer);
+        getSocialNetworks()
+          .then(res => this.setState({ socialNetworks: res.data.socialNetworks})
+        );
+      }
+    }, 1000); 
   };
 
   componentDidMount() {
     document.title = "Social-REST | Dashboard";
-    this.setState({ loading: false });
 
     this.setState({
+      loading: false,
       user: JSON.parse(localStorage.getItem('user'))
     })
 
@@ -48,7 +51,7 @@ class Dashboard extends Component {
       return <div className="uk-flex uk-flex-center uk-flex-middle uk-height-viewport uk-position-z-index uk-position-relative"><Loader /></div>;
     }
 
-    const { socialNetworks }  = this.state;
+    const { socialNetworks } = this.state;
     // console.log(socialNetworks[0]._id)
 
     return (
@@ -74,7 +77,7 @@ class Dashboard extends Component {
           <div className="left-content-box content-box-dark">
             <img src="https://res.cloudinary.com/dj3hdzs7e/image/upload/v1543784645/avatar.png" alt="" className="uk-border-circle profile-img" />
 
-            {!socialNetworks ? <h4 className="uk-text-center uk-margin-remove-vertical text-light">No social networks found</h4> : <h4 className="uk-text-center uk-margin-remove-vertical text-light">{"Social Network Name"}</h4> }
+            {socialNetworks ? <h4 className="uk-text-center uk-margin-remove-vertical text-light">No social networks found</h4> : <h4 className="uk-text-center uk-margin-remove-vertical text-light">{"Social Network Name"}</h4> }
 
             <div className="uk-position-relative uk-text-center uk-display-block">
 
