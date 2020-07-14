@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getSocialNetworks, logout } from '../service';
+import { getUser, logout } from '../service';
 import Loader from 'react-trope-loader'
 import './Dashboard.css'
 
@@ -18,41 +18,40 @@ class Dashboard extends Component {
   }
 
   addTwitter = () => {
-    const url = `${process.env.REACT_APP_BASE_URL}/api/auth/twitter?id=${this.state.user._id}`;
-
+    const url = `${process.env.REACT_APP_BASE_URL}/auth/twitter?id=${this.state.user._id}`;
     const addTwitterWindow = window.open(url, '_blank');
 
-    const timer = setInterval(() => { 
+    this.setState({
+      loading: true
+    });
+
+    const timer = setInterval(() => {
       if(addTwitterWindow.closed) {
         clearInterval(timer);
-        getSocialNetworks()
-          .then(res => this.setState({ socialNetworks: res.data.socialNetworks})
-        );
+
+        this.setState({
+          loading: false
+        })
       }
-    }, 1000); 
+    }, 2000);
   };
 
   componentDidMount() {
     document.title = "Social-REST | Dashboard";
 
-    this.setState({
-      loading: false,
-      user: JSON.parse(localStorage.getItem('user'))
-    })
+    getUser()
+    .then(res => this.setState({ user: res.data.user, socialNetworks: res.data.socialNetworks }))
+    .catch(err => alert(err.message));
 
-    getSocialNetworks()
-    .then(res => this.setState({
-      socialNetworks: res.data.socialNetworks
-    }));
+    this.setState({
+      loading: false
+    });
   };
 
   render() {
     if (this.state.loading) {
       return <div className="uk-flex uk-flex-center uk-flex-middle uk-height-viewport uk-position-z-index uk-position-relative"><Loader /></div>;
     }
-
-    const { socialNetworks } = this.state;
-    // console.log(socialNetworks[0]._id)
 
     return (
       <div>
@@ -76,8 +75,6 @@ class Dashboard extends Component {
           </div>
           <div className="left-content-box content-box-dark">
             <img src="https://res.cloudinary.com/dj3hdzs7e/image/upload/v1543784645/avatar.png" alt="" className="uk-border-circle profile-img" />
-
-            {socialNetworks ? <h4 className="uk-text-center uk-margin-remove-vertical text-light">No social networks found</h4> : <h4 className="uk-text-center uk-margin-remove-vertical text-light">{"Social Network Name"}</h4> }
 
             <div className="uk-position-relative uk-text-center uk-display-block">
 
